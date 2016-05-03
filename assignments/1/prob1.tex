@@ -1,0 +1,92 @@
+\documentclass[main]{subfiles}
+\begin{document}
+\section{Logistic Regression}
+\label{sec:logistic_regression}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{}
+
+For brevity, use the following shorthand:
+\begin{center}
+\begin{math}
+	g_{\v{\theta}}^{(i)} = h_{\v{\theta}}(y^{(i)}x^{(i)})
+\end{math}
+\end{center}
+
+The empirical loss for the logistic regression becomes:
+\begin{center}
+\begin{math}
+	J(\theta) = -\frac{1}{m} \sum\limits_{k=1}^{m}
+				\log(g_{\v{\theta}}^{(k)})
+\end{math}
+\end{center}
+
+First order partial derivatives:
+\begin{align*}
+	\pd{J}{\theta_i}
+		&=
+			-\frac{1}{m} \sum\limits_{k=1}^{m}
+			\frac{1}{g_{\v{\theta}}^{(k)}}
+			\pd{g_{\v{\theta}}^{(k)}}{\theta_i} \\
+		&=
+			-\frac{1}{m} \sum\limits_{k=1}^{m}
+			\frac{1 - g_{\v{\theta}}^{(k)}}{g_{\v{\theta}}^{(k)}}
+			\pd{} {\theta_i} (
+				y^{(k)}\v{\theta}\cdot \v{x}^{(k)}
+			)									\\
+		&=
+			-\frac{1}{m} \sum\limits_{k=1}^{m}
+			\frac{1 - g_{\v{\theta}}^{(k)}}{g_{\v{\theta}}^{(k)}}
+			y^{(k)}x^{(k)}_i
+\end{align*}
+
+Compute the second order partial derivatives;
+\begin{align*}
+	\pdm{J}{\theta_i}{\theta_j}
+		&=
+			-\frac{1}{m} \sum\limits_{k=1}^{m}
+			y^{(k)}x^{(k)}_i
+			\pd{}{\theta_j} (
+				\frac{1 - g_{\v{\theta}}^{(k)}}{g_{\v{\theta}}^{(k)}}
+			)									\\
+		&=
+			\frac{1}{m} \sum\limits_{k=1}^{m}
+			\frac{1}{(g_{\v{\theta}}^{(k)})^2}
+			y^{(k)}x^{(k)}_i
+			y^{(k)}x^{(k)}_j					\\
+		&=
+			\frac{1}{m} \sum\limits_{k=1}^{m}
+			\Big(\frac{y^{(k)}}{g_{\v{\theta}}^{(k)}}\Big)^2
+			 x^{(k)}_i x^{(k)}_j
+\end{align*}
+
+Therefore, the dual form is always non-negative:
+\begin{align*}
+	\sum\limits_{i,j} z_i H_{ij} z_j
+		&=
+			\sum\limits_{i,j}
+			\frac{1}{m} \sum\limits_{k=1}^{m}
+			\Big(\frac{y^{(k)}}{g_{\v{\theta}}^{(k)}}\Big)^2
+			 z_i x^{(k)}_i z_j x^{(k)}_j		\\
+		&=
+			\frac{1}{m} \sum\limits_{k=1}^{m}
+			\Big(\frac{y^{(k)}}{g_{\v{\theta}}^{(k)}}\Big)^2
+			\sum\limits_{i}
+			z_i x^{(k)}_i
+			\sum\limits_{j}
+			z_j x^{(k)}_j						\\
+		&=
+			\frac{1}{m} \sum\limits_{k=1}^{m}
+			\Big(\frac{y^{(k)}}{g_{\v{\theta}}^{(k)}}\Big)^2
+			(\v{z}\cdot\v{x})^2					\\
+		&\geqslant 0
+\end{align*}
+
+\subsection{}
+skipped
+
+\subsection{}
+skipped
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

@@ -1,0 +1,141 @@
+\documentclass[main]{subfiles}
+\begin{document}
+\section{Poisson Regression}
+\label{sec:poisson_regression}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{}
+
+Transform the poisson distribution function
+\begin{align*}
+	p(y;\lambda)
+		&=
+			e^{-\lambda}
+			\frac {(\lambda)^y} {y!} 			\\
+		&=
+			\frac {1} {y!}
+			\exp (
+				y \log \lambda - \lambda
+			)
+\end{align*}
+
+Compare it to the general equation that defines the exponential family
+\begin{center}
+\begin{math}
+	p(y;\lambda) =
+		b(y) \exp ( \eta \, y - a(\eta) )
+\end{math}
+\end{center}
+
+We get
+\begin{align*}
+	a(\eta) 	&=
+			\lambda = e^{\eta} 					\\
+	b(y)		&=
+			\frac {1} {y!}						\\
+	\eta 		&=
+			\log \lambda						\\
+	T(y)		&=
+			y
+\end{align*}
+
+\subsection{}
+
+The mean value of a random variable that abides by the Poisson distribution is
+$\lambda$. Thus the \textbf{canonical response function} is
+\begin{center}
+\begin{math}
+	g(\eta) = E[y;\lambda] = \lambda = e^{\eta}
+\end{math}
+\end{center}
+
+\subsection{}
+skipped
+
+\subsection{}
+Given $T(y) = y$, the general equation of exponential distributions is
+simplified to
+\begin{align*}
+	p(y|\eta) =
+		b(y) \exp ( \eta \, y - a(\eta) )
+\end{align*}
+
+With the course assumption $\eta = \v{\theta}\cdot\v{x}$, the log-likelihood
+function can be written as
+\begin{align*}
+	l(\theta)
+		&=
+			\log p(y^{(i)}|x^{(i)};\theta) 		\\
+		&=
+			\log b(y) +
+			(\v{\theta}\cdot\v{x}^{(i)}) y - a(\v{\theta}\cdot\v{x}^{(i)})
+\end{align*}
+
+Given a data point $(x^{(i)}, y^{(i)})$, the gradient of the log-likelihood with
+respect to $\theta$ is
+\begin{align*}
+	\pd{l(\theta)}{\theta_j}
+		=
+			x^{(i)}_j (
+				y - a^{\p}(\eta)
+			)
+\end{align*}
+
+By observation, it concludes this proof if
+\begin{align*}
+	a^{\p}(\eta) = g(\eta)
+\end{align*}
+
+It can be proved. First let's define a function of $\eta$
+\begin{align*}
+	I(\eta)
+		&=
+			\int
+			p(y;\eta)
+			dy 									\\
+		&=
+			\int
+			b(y) \exp ( \eta \, y - a(\eta) )
+			dy
+\end{align*}
+
+$I(\eta)$ is just the sum of the probabilities of all possible states, which
+must be one, i.e.
+\begin{center}
+\begin{math}
+	I(\eta) = 1
+\end{math}
+\end{center}
+
+Take the derivative with respect to $\eta$
+\begin{align*}
+	I^{\p}(\eta)
+		&=
+			\int
+			\pd {} {\eta}
+			b(y) \exp ( \eta \, y - a(\eta) )
+			dy 									\\
+		&=
+			\int
+			y \, b(y) \exp ( \eta \, y - a(\eta) )
+			dy 									\\
+		&-
+			a^{\p}(\eta)
+			\int
+			b(y) \exp ( \eta \, y - a(\eta) )
+			dy 									\\
+		&=
+			E[y]
+			- a^{\p}(\eta) I(\eta)				\\
+		&=
+			g(\eta)
+			- a^{\p}(\eta) 						\\
+		&=
+			0
+\end{align*}
+
+The last step used the fact that the derivative of a constant number is zero.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
